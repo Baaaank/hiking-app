@@ -44,12 +44,16 @@ function displayPrefecturesData(prefecturesData) {
         option.text = prefecturesData[i].name;
         select.appendChild(option);
     }
-    document.getElementById('dropdown-container').innerHTML = '';
-    document.getElementById('dropdown-container').appendChild(select);
+    document.getElementById('dropdown-prefectures').innerHTML = '';
+    document.getElementById('dropdown-prefectures').appendChild(select);
     document.getElementById('prefectureSelect').addEventListener('change', function() {
         selectPrefecture = this.value;
         console.log(selectPrefecture);
         displayHikesData(hikesData);
+        document.getElementById('courses').style.display = 'none';
+        document.getElementById('hiking-days').style.display = 'none';
+        document.getElementById('backpack-weight').style.display = 'none';
+        document.getElementById('water').style.display = 'none';
     });
 }
 
@@ -69,12 +73,16 @@ function displayHikesData(hikesData) {
         option.value = matchedPrefecture[i].mountain;
         select.appendChild(option);
     }
-    document.getElementById('dropdown-mountain').innerHTML = '';
-    document.getElementById('dropdown-mountain').appendChild(select);
+    document.getElementById('dropdown-mountains').innerHTML = '';
+    document.getElementById('dropdown-mountains').appendChild(select);
+    document.getElementById('mountains').style.display = 'block';
     document.getElementById('hikesSelect').addEventListener('change', function() {
         selectMountain = this.value;
         console.log(selectMountain);
         displayCoursesData(hikesData);
+        document.getElementById('hiking-days').style.display = 'none';
+        document.getElementById('backpack-weight').style.display = 'none';
+        document.getElementById('water').style.display = 'none';
     });
 }
 
@@ -104,13 +112,15 @@ function displayCoursesData(hikesData) {
         option.value = matchedMountains[i].course
         select.appendChild(option);
     }
-    document.getElementById('dropdown-course').innerHTML = '';
-    document.getElementById('dropdown-course').appendChild(select);
+    document.getElementById('dropdown-courses').innerHTML = '';
+    document.getElementById('dropdown-courses').appendChild(select);
+    document.getElementById('courses').style.display = 'block';
     document.getElementById('courseSelect').addEventListener('change', function () {
         let selectCourse = this.value;
         console.log(selectCourse);
         let selectCourseInfo = hikesData.filter(hike => hike.course === selectCourse)
         calculateCourseScore(selectCourseInfo);
+        document.getElementById('water').style.display = 'none';
     });
 }
 
@@ -145,6 +155,7 @@ function calculateCourseScore(information) {
         csResult = Math.round((courseScore) * 1000) / 1000;
         console.log(`${info.course}のコーススコア：`, csResult);
     }
+    document.getElementById('hiking-days').style.display = 'block';
     selectBackpackWeight();
 }
 
@@ -170,8 +181,9 @@ function selectBackpackWeight() {
         option.value = i + 1;
         select.appendChild(option);
     }
-    document.getElementById('backpack-weight').innerHTML = '';
-    document.getElementById('backpack-weight').appendChild(select);
+    document.getElementById('dropdown-backpack-weight').innerHTML = '';
+    document.getElementById('dropdown-backpack-weight').appendChild(select);
+    document.getElementById('backpack-weight').style.display = 'block';
     document.getElementById('bpWeightSelect').addEventListener('change', function() {
     let backPackweight = this.value;
     bpWeight = parseInt(backPackweight, 10);
@@ -202,6 +214,7 @@ function calculateWaterRequired(score, backPackWeight, userWeight) {
     console.log(ec);
     let waterRequired = Math.round(((ec / 1000) * 0.8) * 100) / 100;
     console.log(waterRequired);
+    document.getElementById('water').style.display = 'block';
     document.getElementById('water-required').textContent = waterRequired + 'L';
 }
 
