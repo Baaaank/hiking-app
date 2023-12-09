@@ -1,0 +1,32 @@
+select {
+    padding: 10px;
+    margin-top: 20px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    appearance: none;
+}
+
+h1 {
+    color: rgb(57, 98, 33);
+}
+
+h2 {
+    color: rgb(43, 86, 226);
+}
+
+div#dropdown-prefectures {
+    text-align: left;
+}
+
+/*選択項目とリストの非表示*/
+div#mountains, div#courses, div#hiking-days, div#backpack-weight, div#water {
+    display: none;
+}
+
+
+@media screen and (max-width: 428px) {
+    h1 {
+        color: black;
+    }
+}   
